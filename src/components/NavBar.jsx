@@ -28,13 +28,14 @@ const NavBar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <motion.span 
-              className={`text-xl font-bold ${
+              className={`text-xl font-bold flex items-center space-x-2 ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              MemeVerse
+              <img src="./src/assets/memelogo.png" alt="MemeVerse Logo" className="h-8" />
+              <span className="text-xl font-bold">MemeVerse</span>
             </motion.span>
           </Link>
 

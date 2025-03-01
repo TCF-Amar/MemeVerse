@@ -106,18 +106,7 @@ const MemeUploader = () => {
 
         {/* Buttons */}
         <div className="flex gap-4">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={generateAICaption}
-            disabled={!selectedFile || isGenerating}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-              darkMode ? 'bg-purple-600 hover:bg-purple-700' : 'bg-purple-500 hover:bg-purple-600'
-            } text-white disabled:opacity-50`}
-          >
-            <FaMagic />
-            Generate AI Caption
-          </motion.button>
-
+       
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={handleUpload}
