@@ -72,43 +72,9 @@ src/
 ├── main.jsx        # Entry point
 ```
 
-## 🚀 Getting Started
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/memeverse.git
-cd memeverse
-```
-
-### 2️⃣ Install Dependencies
-
-```bash
-npm install
-```
-
-### 3️⃣ Start the Development Server
-
-```bash
-npm run dev
-```
-
-### 4️⃣ Build for Production
-
-```bash
-npm run build
-```
-
 ## 🎨 UI/UX Enhancements
 
 - **Smooth animations** using Framer Motion.
 - **Lazy loading** for better performance.
 - **Code Splitting** for optimized loading.
 
-## 🔥 Contribution
-
-Want to improve MemeVerse? Feel free to contribute! Fork the repo, make changes, and submit a PR. 🚀
-
-## 📜 License
-
-This project is open-source under the **MIT License**.
