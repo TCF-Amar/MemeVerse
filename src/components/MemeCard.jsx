@@ -42,8 +42,7 @@ const MemeCard = ({ meme, showActions = true }) => {
             <div className="text-gray-500 dark:text-gray-400">
               Failed to load image
             </div>
-          )}
-        
+          )}s
         </div>
       </Link>
 

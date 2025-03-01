@@ -1,4 +1,3 @@
-
 # MemeVerse - A React-Based Meme Explorer 🚀
 
 MemeVerse is a multi-page, highly interactive website where users can explore, upload, and interact with memes. This project is built using **React + Vite** for a fast and optimized frontend experience.
@@ -30,6 +29,7 @@ MemeVerse is a multi-page, highly interactive website where users can explore, u
 - Dynamic routing (**/meme/:id**).
 - Displays meme details, likes, comments, and sharing options.
 - Like & Comment system (saved in **Local Storage**).
+- Related memes suggestions.
 - Animated like button with persistence.
 
 ### ✅ User Profile Page
@@ -49,32 +49,136 @@ MemeVerse is a multi-page, highly interactive website where users can explore, u
 
 ## 🛠 Tech Stack
 
-- **React (Hooks & Components)** - Frontend framework
-- **Vite** - Fast build tool
+- **React 19** - Frontend framework
+- **Vite 6** - Fast build tool
 - **Tailwind CSS** - For styling
 - **Framer Motion** - Animations & transitions
+- **React Router** - Navigation and routing
 - **Context API** - State management
 - **Local Storage** - Store user preferences, likes & comments
-- **Meme APIs (Imgflip, ImgBB, Cloudinary)** - Fetch memes
-- **React Profiler** - Performance optimization
+- **Imgflip API** - Fetch and create memes
+- **React Icons** - Icon library
+- **Axios** - HTTP client
 
-## 📂 Folder Structure
+## 📂 Project Structure
 
 ```
 src/
-├── components/      # Reusable components (Navbar, MemeCard, LikeButton)
-├── pages/          # Main pages (Home, Explore, Upload, Profile)
-├── hooks/          # Custom React hooks
-├── context/        # Context API states (Dark Mode, User Data)
-├── utils/          # Helper functions (API calls, LocalStorage handling)
-├── assets/         # Static files (icons, images)
-├── App.jsx         # Main App component
-├── main.jsx        # Entry point
+├── components/      # Reusable components
+│   ├── MemeCard/   # Meme display component
+│   ├── NavBar/     # Navigation component
+│   ├── SearchBar/  # Search component
+│   └── MemeUploader/ # Upload component
+├── pages/          # Main pages
+│   ├── Home/       # Landing page
+│   ├── Explore/    # Meme browsing
+│   ├── Upload/     # Meme upload
+│   ├── Profile/    # User profile
+│   └── MemeDetails/ # Individual meme view
+├── context/        # React Context
+│   └── AppContext/ # App-wide state
+├── api/           # API integration
+│   └── memeApi.js # Meme API calls
+├── utils/         # Utilities
+│   └── localStorage.js # Local storage handling
+└── assets/        # Static assets
 ```
 
-## 🎨 UI/UX Enhancements
+## 🚀 Getting Started
 
-- **Smooth animations** using Framer Motion.
-- **Lazy loading** for better performance.
-- **Code Splitting** for optimized loading.
+### Prerequisites
 
+- Node.js 18.0 or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/memeverse.git
+cd memeverse
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Open http://localhost:5173 to view the app
+
+### Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+## 💾 Local Storage
+
+The app uses localStorage for:
+- User preferences (dark mode)
+- Liked memes
+- Comments
+- User profile data
+
+## 🔄 State Management
+
+- **AppContext**: Manages global state (dark mode, user preferences)
+- **Local Storage**: Persists user data and preferences
+- **Component State**: Handles component-specific state
+
+## 🎨 UI/UX Features
+
+- Responsive design for all screen sizes
+- Dark mode support
+- Smooth animations and transitions
+- Loading states and error handling
+- Infinite scroll for better UX
+- Image lazy loading
+- Debounced search
+- Interactive UI elements
+
+## 🔐 Security
+
+- No sensitive data stored in localStorage
+- API key handling via environment variables
+- Input sanitization for user-generated content
+
+## 🎯 Future Enhancements
+
+- [ ] User authentication
+- [ ] Server-side persistence
+- [ ] Social sharing integration
+- [ ] Meme creation tools
+- [ ] Categories and tags
+- [ ] User notifications
+- [ ] Performance optimizations
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Imgflip API](https://imgflip.com/api) for meme data
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Framer Motion](https://www.framer.com/motion/) for animations
+- [React Icons](https://react-icons.github.io/react-icons/) for icons

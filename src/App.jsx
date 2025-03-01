@@ -8,6 +8,7 @@ import Upload from "./pages/Upload";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import MemeDetails from "./pages/MemeDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/meme/:id" element={<MemeDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

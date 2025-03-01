@@ -4,6 +4,7 @@ import { FaUser, FaEdit, FaHeart, FaUpload, FaTrash } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext.jsx';
 import MemeCard from '../components/MemeCard';
 import { localStorageService } from '../utils/localStorage';
+import { memeApi } from '../api/memeApi';
 
 const Profile = () => {
   const { darkMode } = useAppContext();
@@ -12,12 +13,36 @@ const Profile = () => {
   const [uploadedMemes, setUploadedMemes] = useState([]);
   const [likedMemes, setLikedMemes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setUploadedMemes(localStorageService.getUploadedMemes());
-    const likedMemeIds = localStorageService.getLikedMemes();
-    // For now, we'll just show the IDs since we don't have a way to fetch meme details
-    setLikedMemes(likedMemeIds.map(id => ({ id, title: `Meme ${id}` })));
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // Get uploaded memes
+        setUploadedMemes(localStorageService.getUploadedMemes());
+        
+        // Get liked meme IDs
+        const likedMemeIds = localStorageService.getLikedMemes();
+        
+        // Fetch details for each liked meme
+        const memesData = await Promise.all(
+          likedMemeIds.map(async (id) => {
+            const meme = await memeApi.getMemeById(id);
+            return meme;
+          })
+        );
+        
+        // Filter out any null values (in case some memes couldn't be fetched)
+        setLikedMemes(memesData.filter(meme => meme !== null));
+      } catch (error) {
+        console.error('Error fetching memes:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleProfileUpdate = (e) => {
@@ -146,47 +171,59 @@ const Profile = () => {
           </button>
         </div>
 
-        {/* Memes Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
-        >
-          {activeTab === 'uploaded' ? (
-            uploadedMemes.length > 0 ? (
-              uploadedMemes.map(meme => (
-                <div key={meme.id} className="relative group">
-                  <MemeCard meme={meme} />
-                  <button
-                    onClick={() => handleDeleteMeme(meme.id)}
-                    className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full 
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                  >
-                    <FaTrash />
-                  </button>
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className={`w-12 h-12 border-4 border-t-transparent rounded-full 
+                ${darkMode ? 'border-white' : 'border-gray-900'}`}
+            />
+          </div>
+        ) : (
+          /* Memes Grid */
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+          >
+            {activeTab === 'uploaded' ? (
+              uploadedMemes.length > 0 ? (
+                uploadedMemes.map(meme => (
+                  <div key={meme.id} className="relative group">
+                    <MemeCard meme={meme} />
+                    <button
+                      onClick={() => handleDeleteMeme(meme.id)}
+                      className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full 
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className={`col-span-full text-center py-8 ${
+                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  No memes uploaded yet
                 </div>
-              ))
+              )
             ) : (
-              <div className={`col-span-full text-center py-8 ${
-                darkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                No memes uploaded yet
-              </div>
-            )
-          ) : (
-            likedMemes.length > 0 ? (
-              likedMemes.map(meme => (
-                <MemeCard key={meme.id} meme={meme} />
-              ))
-            ) : (
-              <div className={`col-span-full text-center py-8 ${
-                darkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                No memes liked yet
-              </div>
-            )
-          )}
-        </motion.div>
+              likedMemes.length > 0 ? (
+                likedMemes.map(meme => (
+                  <MemeCard key={meme.id} meme={meme} />
+                ))
+              ) : (
+                <div className={`col-span-full text-center py-8 ${
+                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  No memes liked yet
+                </div>
+              )
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   );
