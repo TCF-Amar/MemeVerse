@@ -203,13 +203,13 @@ const MemeDetails = () => {
           }`}>
             Related Memes
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {relatedMemes.map(relatedMeme => 
               <MemeCard key={relatedMeme.id} meme={relatedMeme} showActions={false} />
             )}
           </div>
         </div>
-      </div>
+      </div><br />
     </div>
   );
 };
