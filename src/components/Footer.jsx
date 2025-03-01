@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaTwitter, FaDiscord } from 'react-icons/fa';
+import { useAppContext } from '../context/AppContext.jsx';
 
 const Footer = () => {
+  const { darkMode } = useAppContext();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
@@ -19,26 +21,34 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-gray-900 mt-auto">
+    <footer className={`${darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'} transition-colors duration-300 mt-auto`}>
       <div className="mx-auto w-full max-w-screen-xl p-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4">
           {/* Brand Section */}
           <div>
-            <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">MemeVerse</h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <h2 className={`mb-4 text-xl font-bold ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+              MemeVerse
+            </h2>
+            <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
               Your one-stop destination for the dankest memes on the internet.
             </p>
           </div>
 
           {/* Navigation Links */}
           <div>
-            <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Quick Links</h3>
-            <ul className="text-gray-600 dark:text-gray-400">
+            <h3 className={`mb-4 font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+              Quick Links
+            </h3>
+            <ul>
               {footerLinks.map((link) => (
                 <li key={link.name} className="mb-2">
                   <Link
                     to={link.path}
-                    className="hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className={`${
+                      darkMode 
+                        ? 'text-gray-300 hover:text-white' 
+                        : 'text-gray-600 hover:text-gray-900'
+                    } transition-colors`}
                   >
                     {link.name}
                   </Link>
@@ -49,7 +59,9 @@ const Footer = () => {
 
           {/* Social Links */}
           <div>
-            <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Connect With Us</h3>
+            <h3 className={`mb-4 font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+              Connect With Us
+            </h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
@@ -57,7 +69,11 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  className={`${
+                    darkMode 
+                      ? 'text-gray-300 hover:text-white' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  } transition-colors`}
                 >
                   <social.icon className="h-6 w-6" />
                 </a>
@@ -67,8 +83,12 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-4 text-center text-gray-600 dark:text-gray-400">
-          <p>© {currentYear} MemeVerse. All rights reserved.</p>
+        <div className={`mt-8 border-t ${
+          darkMode ? 'border-gray-700' : 'border-gray-200'
+        } pt-4 text-center ${
+          darkMode ? 'text-gray-300' : 'text-gray-600'
+        }`}>
+          <p> {currentYear} MemeVerse. All rights reserved.</p>
         </div>
       </div>
     </footer>
