@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSun, FaMoon, FaBars, FaTimes, FaHome, FaCompass, FaUpload, FaTrophy, FaUser } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext.jsx';
+import memeLogo from "../assets/memelogo.png"
 
 const NavBar = () => {
   const { darkMode, toggleDarkMode } = useAppContext();
@@ -34,7 +35,7 @@ const NavBar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img src="./src/assets/memelogo.png" alt="MemeVerse Logo" className="h-8" />
+              <img src={memeLogo} alt="MemeVerse Logo" className="h-8" />
               <span className="text-xl font-bold">MemeVerse</span>
             </motion.span>
           </Link>
